@@ -1,0 +1,11 @@
+Classification Report for SVM
+============================================================
+
+              precision    recall  f1-score   support
+
+           0       0.92      0.88      0.90       137
+           1       0.90      0.93      0.92       163
+
+    accuracy                           0.91       300
+   macro avg       0.91      0.91      0.91       300
+weighted avg       0.91      0.91      0.91       300

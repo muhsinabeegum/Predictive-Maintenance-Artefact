@@ -1,0 +1,11 @@
+{
+  "python_version": "3.12.13",
+  "numpy_version": "2.3.5",
+  "pandas_version": "3.0.1",
+  "scikit_learn_version": "1.9.0",
+  "random_seed": 42,
+  "sample_count": 1000,
+  "training_count": 700,
+  "testing_count": 300,
+  "best_model_by_testing_f1": "Random_Forest"
+}

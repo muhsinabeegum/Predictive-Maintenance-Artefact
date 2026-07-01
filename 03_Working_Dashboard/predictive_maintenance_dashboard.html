@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Predictive Maintenance Dashboard</title>
+<style>
+:root{--bg:#0b1220;--card:#111c30;--ink:#eef4ff;--muted:#a8b8d4;--blue:#4fa3ff;--green:#38d39f;--amber:#ffbd59;--red:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(135deg,#08101e,#142441);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif}
+.wrap{max-width:1180px;margin:auto;padding:28px}h1{margin:0;font-size:clamp(1.7rem,4vw,2.7rem)}.sub{color:var(--muted);margin:8px 0 24px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.card{grid-column:span 4;background:rgba(17,28,48,.94);border:1px solid #263b5e;border-radius:16px;padding:18px;box-shadow:0 14px 35px #0004}
+.wide{grid-column:span 8}.full{grid-column:1/-1}.kpi{font-size:2rem;font-weight:750;margin-top:8px}.label{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.08em}
+table{width:100%;border-collapse:collapse;margin-top:12px}th,td{padding:10px;border-bottom:1px solid #29405f;text-align:right}th:first-child,td:first-child{text-align:left}th{color:var(--muted)}
+.bars{display:grid;gap:10px;margin-top:14px}.barrow{display:grid;grid-template-columns:130px 1fr 52px;align-items:center;gap:10px}.track{height:14px;background:#243650;border-radius:99px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--green));border-radius:99px}
+.matrix{display:grid;grid-template-columns:repeat(2,80px);gap:6px;justify-content:center;margin:18px}.cell{padding:18px 8px;text-align:center;background:#1e3858;border-radius:10px;font-size:1.25rem;font-weight:700}
+.note{color:var(--muted);font-size:.9rem;line-height:1.5}.legend span{margin-right:16px}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+@media(max-width:800px){.card,.wide{grid-column:1/-1}.barrow{grid-template-columns:100px 1fr 45px}}
+</style>
+</head>
+<body><main class="wrap">
+<h1>AI-Driven Predictive Maintenance</h1>
+<p class="sub">Healthcare equipment prototype · deterministic synthetic-data evaluation</p>
+<section class="grid">
+<article class="card"><div class="label">Evaluated records</div><div class="kpi" id="samples"></div></article>
+<article class="card"><div class="label">Best testing F1 model</div><div class="kpi" id="best"></div></article>
+<article class="card"><div class="label">Dashboard status</div><div class="kpi" style="color:var(--green)">Verified</div></article>
+<article class="card wide"><h2>Testing performance</h2><div id="metricBars" class="bars"></div><table id="metricTable"></table></article>
+<article class="card"><h2>Random Forest confusion matrix</h2><div class="matrix" id="matrix"></div><p class="note">Rows: actual class; columns: predicted class. Order: non-failure, failure.</p></article>
+<article class="card"><h2>Class distribution</h2><div id="classes" class="bars"></div></article>
+<article class="card wide"><h2>Interpretation</h2><p class="note">This dashboard is generated directly by the same Python run that creates the CSV evidence. It contains no independently typed metric values. The dataset is synthetic and rule-derived; results demonstrate technical feasibility only and must not be interpreted as clinical validation.</p></article>
+</section></main>
+<script>
+const data={"metrics":[{"Model":"Random_Forest","Dataset":"Testing","Accuracy":0.94,"Precision":0.956,"Recall":0.9325,"F1_Score":0.9441},{"Model":"SVM","Dataset":"Testing","Accuracy":0.91,"Precision":0.9048,"Recall":0.9325,"F1_Score":0.9184},{"Model":"Neural_Network","Dataset":"Testing","Accuracy":0.8167,"Precision":0.8333,"Recall":0.8282,"F1_Score":0.8308}],"confusions":{"Random_Forest":[[130,7],[11,152]],"SVM":[[121,16],[11,152]],"Neural_Network":[[110,27],[28,135]]},"class_counts":{"Non-Failure":458,"Failure":542},"rf_probabilities":{"actual_non_failure":[0.02,0.12,0.1667,0.0933,0.1067,0.12,0.0467,0.12,0.0667,0.16,0.1133,0.2733,0.0067,0.0333,0.0267,0.0733,0.0267,0.1667,0.0333,0.1867,0.22,0.0733,0.08,0.1267,0.04,0.1733,0.26,0.7733,0.3467,0.2733,0.3,0.14,0.0,0.02,0.9667,0.2,0.1467,0.24,0.0867,0.1933,0.0667,0.28,0.04,0.08,0.1467,0.0,0.08,0.0933,0.02,0.12,0.08,0.02,0.02,0.0533,0.2933,0.0733,0.32,0.0333,0.0533,0.0867,0.3867,0.18,0.08,0.2333,0.0533,0.0067,0.14,0.0267,0.9533,0.0533,0.04,0.1867,0.0733,0.1333,0.0933,0.14,0.9933,0.1133,0.78,0.0,0.1067,0.04,0.0867,0.5,0.0733,0.0467,0.04,0.1067,0.2133,0.14,0.1067,0.06,0.12,0.0467,0.0533,0.2467,0.3133,0.1067,0.0333,0.1667,0.0733,0.1,0.2,0.1133,0.0733,0.04,0.4133,0.1333,0.1667,0.1667,0.04,0.08,0.18,0.0,0.8067,0.2933,0.3467,0.1667,0.0667,0.0667,0.3,0.1,0.0467,0.14,0.9733,0.0133,0.04,0.0267,0.28,0.0467,0.3933,0.26,0.18,0.22,0.0133,0.1933,0.1267],"actual_failure":[0.96,0.9733,0.9267,0.96,0.9667,0.9533,0.8733,1.0,0.8667,0.8933,1.0,0.9933,0.7467,0.9933,0.9733,0.9733,0.98,0.9267,0.9933,0.8067,0.9467,0.9,0.88,0.9667,0.9133,0.7667,0.9667,0.9733,0.9267,0.7333,0.8867,0.92,0.0533,0.9667,0.96,0.9533,0.98,0.9867,0.9467,0.9933,0.9933,0.98,0.9733,0.9867,0.96,0.9867,0.96,0.9933,0.9933,0.9933,0.9867,0.9267,0.0333,0.9067,0.1467,0.9733,1.0,0.9933,0.9667,0.9533,0.86,0.96,0.0133,0.98,0.9467,0.9467,0.9067,0.9867,0.9533,0.8933,0.9467,0.98,0.5533,0.9,0.9867,0.8333,0.84,1.0,0.9867,0.9267,1.0,0.9867,1.0,0.9933,0.02,1.0,0.9933,0.9267,0.94,0.9867,0.98,0.9667,0.96,0.9667,0.8933,0.08,0.98,0.9867,0.9133,1.0,0.9733,0.8267,0.94,0.9733,0.8733,0.96,0.9933,0.8933,0.1733,0.98,0.94,0.9867,0.9867,0.8333,0.9933,0.9867,0.9733,0.96,0.0133,0.9867,0.8533,0.9933,0.8267,0.96,0.9733,0.94,0.9867,0.74,0.9933,0.0467,0.9933,0.9267,0.9867,1.0,0.8933,0.9533,0.9933,0.9533,0.9867,0.9733,0.9333,0.92,0.9933,0.9933,0.9867,0.6933,0.98,0.9867,0.9067,0.98,0.8133,0.9933,0.2733,0.8467,0.9667,0.0533,0.9733,0.9933,0.7267,0.9333,0.94,0.9133,0.92]},"best_model":"Random_Forest","sample_count":1000};
+document.getElementById('samples').textContent=data.sample_count.toLocaleString();
+document.getElementById('best').textContent=data.best_model.replaceAll('_',' ');
+const fmt=x=>Number(x).toFixed(4);
+const rows=data.metrics.map(m=>`<tr><td>${m.Model.replaceAll('_',' ')}</td><td>${fmt(m.Accuracy)}</td><td>${fmt(m.Precision)}</td><td>${fmt(m.Recall)}</td><td>${fmt(m.F1_Score)}</td></tr>`).join('');
+document.getElementById('metricTable').innerHTML=`<thead><tr><th>Model</th><th>Accuracy</th><th>Precision</th><th>Recall</th><th>F1</th></tr></thead><tbody>${rows}</tbody>`;
+document.getElementById('metricBars').innerHTML=data.metrics.map(m=>`<div class="barrow"><span>${m.Model.replaceAll('_',' ')}</span><div class="track"><div class="fill" style="width:${m.F1_Score*100}%"></div></div><strong>${fmt(m.F1_Score)}</strong></div>`).join('');
+const cm=data.confusions.Random_Forest;document.getElementById('matrix').innerHTML=cm.flat().map(v=>`<div class="cell">${v}</div>`).join('');
+const maxClass=Math.max(...Object.values(data.class_counts));document.getElementById('classes').innerHTML=Object.entries(data.class_counts).map(([k,v])=>`<div class="barrow"><span>${k}</span><div class="track"><div class="fill" style="width:${v/maxClass*100}%"></div></div><strong>${v}</strong></div>`).join('');
+</script></body></html>

@@ -1,0 +1,8 @@
+Evidence item,Location,Purpose
+Main guide,README.md,Installation and verification instructions
+Notebook,01_Notebook/predictive_maintenance_colab.ipynb,Executable notebook workflow
+Python source,02_Python_Code/predictive_maintenance_complete.py,Canonical standalone implementation
+Dashboard,03_Working_Dashboard/predictive_maintenance_dashboard.html,Self-contained generated dashboard
+Execution evidence,04_Execution_Outputs/,Datasets predictions metrics reports figures and metadata
+Dependencies,requirements.txt,Reproducible Python environment
+Limitations,METHODOLOGY_AND_LIMITATIONS.md,Scope assumptions and responsible-use statement

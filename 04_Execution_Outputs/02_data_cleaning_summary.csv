@@ -1,0 +1,7 @@
+Item,Value
+Original rows,1000
+Cleaned rows,1000
+Duplicate/missing rows removed,0
+Missing values after cleaning,0
+Features,"temperature, vibration, voltage, usage"
+Target variable,failure

@@ -1,0 +1,7 @@
+Model,Dataset,Accuracy,Precision,Recall,F1_Score
+Random_Forest,Training,1.0,1.0,1.0,1.0
+Random_Forest,Testing,0.94,0.956,0.9325,0.9441
+SVM,Training,0.8943,0.9045,0.8997,0.9021
+SVM,Testing,0.91,0.9048,0.9325,0.9184
+Neural_Network,Training,1.0,1.0,1.0,1.0
+Neural_Network,Testing,0.8167,0.8333,0.8282,0.8308
